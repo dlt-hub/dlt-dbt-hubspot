@@ -22,13 +22,13 @@ The resulting project can be executed using the credentials already provided to 
 Install the latest version on `dlt-dbt-generator` using the following command:
 
 ```sh
-pip install https://dlt-packages.fra1.digitaloceanspaces.com/dlt-plus/dlt_plus-0.1.0-py3-none-any.whl
+pip install https://dlt-packages.fra1.digitaloceanspaces.com/dlt-plus/dlt_plus-0.2.0-py3-none-any.whl
 ```
 
 To install the latest nightly build with Poetry, first uninstall any existing version you have installed, then run:
 
 ```sh
-poetry add https://dlt-packages.fra1.digitaloceanspaces.com/dlt-plus/dlt_plus-0.1.0-py3-none-any.whl
+poetry add https://dlt-packages.fra1.digitaloceanspaces.com/dlt-plus/dlt_plus-0.2.0-py3-none-any.whl
 ```
 ### Licensing
 To use the dlt+ tools, you need to obtain a valid license from dltHub. Once you have received your license, you can make it available to dlt+ by adding it to your environment:
