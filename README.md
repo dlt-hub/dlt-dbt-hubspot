@@ -108,17 +108,8 @@ api_key= "Please set me up!"
 
 **Credentials for destination**
 
-Add the destination credentials for a database where you want to upload your data:
-```toml
-# BigQuery destination configuration
+Enter credentials for your chosen destination as per the [docs.](https://dlthub.com/docs/dlt-ecosystem/destinations/)
 
-[destination.bigquery]
-location = "US"
-[destination.bigquery.credentials]
-project_id = "please set me up!"
-private_key = "please set me up!"
-client_email = "please set me up!"
-```
 
 Read more about configuration: [Secrets and Configs](https://dlthub.com/docs/general-usage/credentials/configuration). 
 ### Define primary keys
