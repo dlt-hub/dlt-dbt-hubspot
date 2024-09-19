@@ -211,7 +211,7 @@ import dlt
 from dlt_plus.dbt_generator.utils import table_reference_adapter
 
 #configure and run your pipeline
-p = dlt.pipeline(pipeline_name="example_shop", destination="duckdb")
+p = dlt.pipeline(pipeline_name="hubspot", destination="bigquery", dataset="hubspot_data")
 p.run([deals(), contacts(), tickets()])
 
 # Define relationships in your schema
