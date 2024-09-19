@@ -277,6 +277,9 @@ for data model which can be further modified as required.
     
    ![picture1](https://storage.googleapis.com/dlt-blog-images/hubspot_schema_new%20(1).png)
 
+> Please note that this is a starting template for your data model and is not the final product. It is advised to customize the
+> data model as per your needs.
+
    Here's the link to the DB diagram: [link](https://dbdiagram.io/d/hubspot_normal-66d161a0eef7e08f0e338a98).
 
 
