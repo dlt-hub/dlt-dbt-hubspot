@@ -1,10 +1,5 @@
-# Hubspot dbt package
-This HubSpot dbt package was created using the dlt-dbt-generator for demonstration purposes. The dlt-dbt-generator is 
-a tool designed to model data loaded from your dlt pipeline.
-
-To use this dbt package, you need to install the dlt-dbt-generator and ensure you have a valid license. The package constructs 
-dimensional models that facilitate analytics by providing insights into user behavior and event interactions. It also offers 
-customization options, allowing you to tailor the models to meet specific analytical requirements.
+# Hubspot dlt-dbt-generator package
+This package uses a dlt-dbt-generator to model data that is loaded from your dlt pipeline.
 
 ## In a nutshell
 
@@ -12,23 +7,16 @@ customization options, allowing you to tailor the models to meet specific analyt
 
 - Additionally, the dlt-dbt-generator lets you define relationships between the schema tables, which can be used to create fact tables automatically.
 
-- The resulting project can be executed using the credentials already provided to the pipeline and is capable to process incoming data incrementally.
-
-## Use Case of the Package
-
-1. Model data from your ingestion pipeline.
-2. Cross-database compatibility (tested on Redshift, Athena, Snowflake, Postgres).
-3. Creates stateful entities for deals, tickets, and other tables for self-serving analytics.
-4. Customizable to add relationships between fact and dimension tables.
+The resulting project can be executed using the credentials already provided to the pipeline and is capable of processing incoming data incrementally.
 
 ## How it works?
-1. **Initialize and Configure HubSpot Pipeline:** Begin by setting up and configuring your HubSpot pipeline to ensure it is ready for data processing.
-2. **Install and Run dlt-dbt-generator:** Execute the dlt-dbt-generator to automatically create the initial set of mart and staging tables.
-3. **Ensure Primary Keys are Defined:** Before running the generator, make sure each table has a primary key. These keys are essential for accurately linking data across tables, ensuring data integrity.
-4. **Review Generated Tables:** Examine the tables created by the dlt-dbt-generator to ensure they align with your requirements. Understanding their structure and content is crucial for planning customizations.
-5. **Define Custom Relationships for Fact Tables:** To add customized fact tables, define how different tables relate to each other based on your specific data needs. This involves setting up custom relationships that reflect your data model.
-6. **Re-run the Pipeline:** After defining all necessary relationships and confirming your setup, re-run the pipeline to apply the changes. This step processes the data with the updated configurations.
-7. **Create Dimension and Fact Tables:** Use the dlt-dbt-generator again to create dimension and fact tables. This finalizes the structure of your data model, allowing for comprehensive analysis and insights.
+1. Setup and run your dlt-hubspot pipeline.
+2. Install and execute the dlt-dbt-generator to automatically create the initial set of mart and staging tables.
+3. Before running the generator, make sure the primary keys are defined. These keys are essential for accurately linking data across tables.
+4. Execute the generator and examine the baseline dbt project created.
+5. To add customized fact tables, define how different tables relate to each other based on your specific data needs. This involves setting up custom relationships that reflect your data model.
+6. After defining all necessary relationships, re-run the pipeline to apply the changes. This step processes the data with the updated configurations.
+7. Use the dlt-dbt-generator again to create dimension and fact tables. This finalizes the structure of your data model, allowing for comprehensive analysis and insights.
 
 ## Install `dlt-dbt-generator`
 Install the latest version on `dlt-dbt-generator` using the following command:
@@ -48,7 +36,7 @@ To use the dlt+ tools, you need to obtain a valid license from dltHub. Once you 
 ```sh
 export RUNTIME__LICENSE="eyJhbGciOiJSUz...vKSjbEc==="
 ```
-Or by adding it to your global or local secrets.toml file:
+Or by adding it to your global or local `secrets.toml` file:
 
 ```toml
 [runtime]
@@ -146,6 +134,7 @@ def deals():
 or 
 
 ```py
+source = hubspot()
 source.deals.apply_hints(primary_key="id")
 ```
 
@@ -184,19 +173,27 @@ dbt_<pipeline-name>/
 │   ├── marts/
 │   │   ├── dim_<pipeline-name>__dlt_loads.sql
 │   │   ├── dim_<pipeline-name>__companies.sql
+│   │   └── dim_<pipeline-name>__contacts__deals.sql
+│   │   └── dim_<pipeline-name>__contacts__tickets.sql
 │   │   └── dim_<pipeline-name>__contacts.sql
-|   |   └── dim_<pipeline-name>__contacts__deals.sql
-|   |   └── dim_<pipeline-name>__contacts_tickets.sql
 |   |   └── dim_<pipeline-name>__deals.sql
+|   |   └── dim_<pipeline-name>__owners.sql
+|   |   └── dim_<pipeline-name>__pipelines_deals__stages.sql
+|   |   └── dim_<pipeline-name>__pipelines_deals.sql
+|   |   └── dim_<pipeline-name>__stages_timing_deals.sql
 |   |   └── dim_<pipeline-name>__tickets.sql
 │   ├── staging/
 │   │   ├── sources.yml
 │   │   ├── stg_<pipeline-name>__dlt_loads.sql
 │   │   ├── stg_<pipeline-name>__companies.sql
+│   │   └── stg_<pipeline-name>__contacts__deals.sql
+│   │   └── stg_<pipeline-name>__contacts__tickets.sql
 │   │   └── stg_<pipeline-name>__contacts.sql
-|   |   └── stg_<pipeline-name>__contacts__deals.sql
-|   |   └── stg_<pipeline-name>__contacts_tickets.sql
 |   |   └── stg_<pipeline-name>__deals.sql
+|   |   └── stg_<pipeline-name>__owners.sql
+|   |   └── stg_<pipeline-name>__pipelines_deals__stages.sql
+|   |   └── stg_<pipeline-name>__pipelines_deals.sql
+|   |   └── stg_<pipeline-name>__stages_timing_deals.sql
 |   |   └── stg_<pipeline-name>__tickets.sql
 │   ├── <pipeline-name>_dlt_active_load_ids.sql # Used for incremental processing of data
 │   └── <pipeline-name>_dlt_processed_load.sql # Used for incremental processing of data
@@ -206,10 +203,13 @@ dbt_<pipeline-name>/
 ```
 
 ### 3. Create fact tables 
+
 To create a fact table, you can use the primary critical relationships created earlier or you could define custom relationships using the relationship adapter as :
 
-
 ```py
+import dlt
+from dlt_plus.dbt_generator.utils import table_reference_adapter
+
 #configure and run your pipeline
 p = dlt.pipeline(pipeline_name="example_shop", destination="duckdb")
 p.run([deals(), contacts(), tickets()])
@@ -217,22 +217,31 @@ p.run([deals(), contacts(), tickets()])
 # Define relationships in your schema
 table_reference_adapter(
     p,
-    "companies",
+    "deals",
     references=[
         {
-            "referenced_table": "countries",
-            "columns": ["country_id"],
-            "referenced_columns": ["id"],
+            "referenced_table": "contacts__deals",
+            "columns": ["id"],
+            "referenced_columns": ["deals_id"],
         }
     ],
-)
+    )
 
+    table_reference_adapter(
+    p,
+    "tickets",
+    references=[
+        {
+            "referenced_table": "contacts__tickets",
+            "columns": ["id"],
+            "referenced_columns": ["tickets_id"],
+        }
+    ],
+    )
   
 ```
 
 > Please note that the abovementioned relationships are for demonstration purposes only. You should define these relationships based on your specific use case and the design of your dimensional model. Tailor them to meet the unique requirements of your project.
-
-To generate the fact tables for deals and tickets, run the following command:
 
 ```
 dlt-dbt-generator <pipeline-name> --fact deals
@@ -240,8 +249,6 @@ dlt-dbt-generator <pipeline-name> --fact deals
 
 dlt-dbt-generator <pipeline-name> --fact tickets
 ```
-
-You can customize the model as you've asked.
 
 The new model you generated looks like:
 ```
@@ -252,10 +259,14 @@ dbt_<pipeline-name>/
 │   ├── marts/
 │   │   ├── dim_<pipeline-name>__dlt_loads.sql
 │   │   ├── dim_<pipeline-name>__companies.sql
+│   │   └── dim_<pipeline-name>__contacts__deals.sql
+│   │   └── dim_<pipeline-name>__contacts__tickets.sql
 │   │   └── dim_<pipeline-name>__contacts.sql
-|   |   └── dim_<pipeline-name>__contacts__deals.sql
-|   |   └── dim_<pipeline-name>__contacts_tickets.sql
 |   |   └── fact_<pipeline-name>__deals.sql
+|   |   └── dim_<pipeline-name>__owners.sql
+|   |   └── dim_<pipeline-name>__pipelines_deals__stages.sql
+|   |   └── dim_<pipeline-name>__pipelines_deals.sql
+|   |   └── dim_<pipeline-name>__stages_timing_deals.sql
 |   |   └── fact_<pipeline-name>__tickets.sql
 │   ├── staging/
 │   │   ├── sources.yml
@@ -267,11 +278,16 @@ dbt_<pipeline-name>/
 └── requirements.txt
 ```
 
-## Database schema diagrams
-Here are the database diagrams for the Hubspot, from raw to modeled:
+## Customize as you need
+The dbt model above can be further customized according to the requirements. Using this package you'll get a basic template
+for data model which can be further modified as required.
 
 1. The schema of data exported from GA4 to BigQuery:
     
-   ![picture1](https://storage.googleapis.com/dlt-blog-images/hubspot_dlt_dbt_test3.svg)
+   ![picture1](https://storage.googleapis.com/dlt-blog-images/hubspot_schema_new%20(1).png)
 
    Here's the link to the DB diagram: [link](https://dbdiagram.io/d/hubspot_normal-66d161a0eef7e08f0e338a98).
+
+
+
+

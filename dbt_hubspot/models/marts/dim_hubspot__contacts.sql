@@ -1,0 +1,39 @@
+/* Table: contacts */
+{{
+    config(
+        materialized='incremental'
+    )
+}}
+SELECT
+    t."city",
+    t."company",
+    t."createdate",
+    t."email",
+    t."firstname",
+    t."hs_object_id",
+    t."jobtitle",
+    t."lastmodifieddate",
+    t."lastname",
+    t."lifecyclestage",
+    t."num_conversion_events",
+    t."num_unique_conversion_events",
+    t."state",
+    t."website",
+    t."id",
+    t."_dlt_load_id",
+    t."_dlt_id",
+    t."twitterhandle",
+    t."twitterprofilephoto",
+    t."first_deal_created_date",
+    t."hs_lead_status",
+    t."hubspot_owner_assigneddate",
+    t."hubspot_owner_id",
+    t."num_associated_deals",
+    t."phone",
+    t."notes_last_contacted",
+    t."notes_last_updated",
+    t."num_contacted_notes",
+    t."num_notes",
+    t."address",
+    t."zip",
+FROM  {{ ref('stg_hubspot__contacts') }} as t
