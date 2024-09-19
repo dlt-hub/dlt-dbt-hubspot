@@ -282,7 +282,7 @@ dbt_<pipeline-name>/
 The dbt model above can be further customized according to the requirements. Using this package you'll get a basic template
 for data model which can be further modified as required.
 
-1. The schema of data exported from GA4 to BigQuery:
+1. The schema of data modelled above using dlt-dbt-generator:
     
    ![picture1](https://storage.googleapis.com/dlt-blog-images/hubspot_schema_new%20(1).png)
 
