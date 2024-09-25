@@ -96,12 +96,6 @@ While this package provides a solid foundation, you can customize it to suit you
 - Modify the models to align with your business logic.
 - Add relationships between tables by modifying your dlt pipeline schema.
 
-#### Optional: Advanced Usage (Generator and Licensing)
-
-This package was created using the dlt-dbt-generator by dlt-plus. For more information about dlt-plus, refer to the 
-[dlt-plus documentation.](https://dlt-plus.netlify.app/docs/plus/intro/).To learn more about the dlt-dbt-generator, 
-consult the [dlt-dbt-generator](https://dlt-plus.netlify.app/docs/plus/dlt_dbt_generator/#5-running-dbt-package-directly) documentation.
-
 ### Schema diagram
 The dbt model above can be further customized according to the requirements. Using this package you'll get a basic template
 for data model which can be further modified as required.
@@ -114,5 +108,11 @@ for data model which can be further modified as required.
 > data model as per your needs.
 
 Here's the link to the DB diagram: [link](https://dbdiagram.io/d/hubspot_schema_new-66e1604a6dde7f4149be5c2a).
+
+#### Optional: Advanced Usage (Generator and Licensing)
+
+This package was created using the dlt-dbt-generator by dlt-plus. For more information about dlt-plus, refer to the 
+[dlt-plus documentation.](https://dlt-plus.netlify.app/docs/plus/intro/).To learn more about the dlt-dbt-generator, 
+consult the [dlt-dbt-generator](https://dlt-plus.netlify.app/docs/plus/dlt_dbt_generator/#5-running-dbt-package-directly) documentation.
 
 
