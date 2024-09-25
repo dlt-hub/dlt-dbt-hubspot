@@ -81,7 +81,7 @@ dbt run
 ```
 
 >You can use the 'run_hubspot_dbt.py' script to execute your dbt transformations and load the results into a 
->new dataset named `<original-dataset>_transformed` and runs the dbt tests.To use, please ensure you configure 
+>new dataset named '<original-dataset>_transformed' and runs the dbt tests.To use, please ensure you configure 
 >your dlt pipeline name and destination correctly.
 
 To check for issues, run the dbt tests:
