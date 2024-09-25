@@ -99,7 +99,7 @@ While this package provides a solid foundation, you can customize it to suit you
 #### Optional: Advanced Usage (Generator and Licensing)
 
 This package was created using the dlt-dbt-generator by dlt-plus. For more information about dlt-plus, refer to the 
-[dlt-plus documentation.]((https://dlt-plus.netlify.app/docs/plus/intro/).To learn more about the dlt-dbt-generator, 
+[dlt-plus documentation.](https://dlt-plus.netlify.app/docs/plus/intro/).To learn more about the dlt-dbt-generator, 
 consult the [dlt-dbt-generator](https://dlt-plus.netlify.app/docs/plus/dlt_dbt_generator/#5-running-dbt-package-directly) documentation.
 
 ### Schema diagram
