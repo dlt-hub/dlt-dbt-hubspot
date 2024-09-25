@@ -27,7 +27,7 @@ This package is perfect for dbt users who want to integrate HubSpot data into th
 2. **Configure the Pipeline:**
    Follow the dlt HubSpot pipeline documentation to set up your pipeline. Ensure you have your HubSpot API key and destination credentials configured.
 
-3. **Run the Pipeline: **
+3. **Run the Pipeline:**
    Extract and load data from HubSpot into your data warehouse by running the pipeline.
 
 ### Step 2: Install and Configure the dbt Project
@@ -48,12 +48,12 @@ dbt_<pipeline-name>/
 │   │   └── dim_<pipeline-name>__contacts__deals.sql
 │   │   └── dim_<pipeline-name>__contacts__tickets.sql
 │   │   └── dim_<pipeline-name>__contacts.sql
-|   |   └── dim_<pipeline-name>__deals.sql
+|   |   └── fact_<pipeline-name>__deals.sql
 |   |   └── dim_<pipeline-name>__owners.sql
 |   |   └── dim_<pipeline-name>__pipelines_deals__stages.sql
 |   |   └── dim_<pipeline-name>__pipelines_deals.sql
 |   |   └── dim_<pipeline-name>__stages_timing_deals.sql
-|   |   └── dim_<pipeline-name>__tickets.sql
+|   |   └── fact_<pipeline-name>__tickets.sql
 │   ├── staging/
 │   │   ├── sources.yml
 │   │   ├── stg_<pipeline-name>__dlt_loads.sql
@@ -79,6 +79,10 @@ Execute the dbt models to transform the raw HubSpot data into useful tables:
 ```sh
 dbt run
 ```
+
+>You can use the 'run_hubspot_dbt.py' script to execute your dbt transformations and load the results into a 
+>new dataset named <original-dataset>_transformed and runs the dbt tests.To use, please ensure you configure your dlt 
+>pipeline name and destination, correctly.
 
 To check for issues, run the dbt tests:
 
