@@ -95,7 +95,9 @@ While this package provides a solid foundation, you can customize it to suit you
 
 - Modify the models to align with your business logic.
 - Add relationships between tables by modifying your dlt pipeline schema.
-
+> The dimensional modelling part of the package was created with a declarative code generator and suffers from 
+> limitations inherent to modelling raw data directly. We advise you consider the raw data tables and adjust 
+> the modelled layer as needed.
 ### Schema diagram
 The dbt model above can be further customized according to the requirements. Using this package you'll get a basic template
 for data model which can be further modified as required.
@@ -114,5 +116,9 @@ Here's the link to the DB diagram: [link](https://dbdiagram.io/d/hubspot_schema_
 This package was created using the dlt-dbt-generator by dlt-plus. For more information about dlt-plus, refer to the 
 [dlt-plus documentation.](https://dlt-plus.netlify.app/docs/plus/intro/).To learn more about the dlt-dbt-generator, 
 consult the [dlt-dbt-generator](https://dlt-plus.netlify.app/docs/plus/dlt_dbt_generator/#5-running-dbt-package-directly) documentation.
+
+> The dimensional modelling part of the package was created with a declarative code generator and suffers from 
+> limitations inherent to modelling raw data directly. We advise you consider the raw data tables and adjust 
+> the modelled layer as needed
 
 
