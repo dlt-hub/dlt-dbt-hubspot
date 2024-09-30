@@ -25,7 +25,7 @@ This package is perfect for dbt users who want to integrate HubSpot data into th
    pip install dlt
    ```
 2. **Configure the Pipeline:**
-   Follow the dlt HubSpot pipeline documentation to set up your pipeline. Ensure you have your HubSpot API key and destination credentials configured.
+   Follow the dlt [HubSpot pipeline documentation](https://dlthub.com/docs/dlt-ecosystem/verified-sources/hubspot) to set up your pipeline. Ensure you have your HubSpot API key and destination credentials configured.
 
 3. **Run the Pipeline:**
    Extract and load data from HubSpot into your data warehouse by running the pipeline.
@@ -114,7 +114,7 @@ Here's the link to the DB diagram: [link](https://dbdiagram.io/d/hubspot_schema_
 #### Optional: Advanced Usage (Generator and Licensing)
 
 This package was created using the dlt-dbt-generator by dlt-plus. For more information about dlt-plus, refer to the 
-[dlt-plus documentation.](https://dlt-plus.netlify.app/docs/plus/intro/).To learn more about the dlt-dbt-generator, 
+[dlt-plus documentation.](https://dlt-plus.netlify.app/docs/plus/intro/) To learn more about the dlt-dbt-generator, 
 consult the [dlt-dbt-generator](https://dlt-plus.netlify.app/docs/plus/dlt_dbt_generator/#5-running-dbt-package-directly) documentation.
 
 > The dimensional modelling part of the package was created with a declarative code generator and suffers from 
