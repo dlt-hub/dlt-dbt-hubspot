@@ -18,5 +18,5 @@ if __name__ == "__main__":
         destination_dataset_name=p.dataset_name + "_transformed",
     )
 
-    # run tests 
+    # run tests
     dbt.test(destination_dataset_name=p.dataset_name + "_transformed")

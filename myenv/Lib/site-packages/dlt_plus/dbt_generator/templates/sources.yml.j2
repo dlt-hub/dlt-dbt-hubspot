@@ -1,0 +1,35 @@
+version: 2
+sources:
+  - name: raw_data
+    schema: '{{ "{{" }} var ("source_dataset_name") {{ "}}" }}'
+    tables:
+{%- for table in tables.keys() %}
+      - name: {{ table }}
+{%- endfor %}
+  - name: transformed_data
+    schema: '{{ "{{" }} var ("destination_dataset_name") {{ "}}" }}'
+    tables:
+      - name: {{ processed_load_id_table_name }}
+
+models:
+      - name: {{ processed_load_id_table_name }}
+        description: "This table contains all processed load ids for incremental loading"
+{%- for table_name, table in tables.items() %}
+      - name: {{ table_name }}
+        {%- if table.get("description") %}
+        description: "{{ table.get("description") }}"
+        {%- endif %}
+        columns:
+{%- for column_name, column in table.columns.items() %}
+          - name: {{ column_name }}
+    {%- if not column.get("nullable") or column.get("unique") %}
+            tests:
+          {%- if not column.get("nullable") %}
+              - not_null
+          {%- endif %}
+          {%- if column.get("unique") %}
+              - unique
+          {%- endif %}
+    {%- endif %}
+{%- endfor %}
+{%- endfor %}

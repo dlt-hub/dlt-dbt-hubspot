@@ -1,0 +1,11 @@
+{{ "{{" }}
+    config(
+        materialized='incremental'
+    )
+{{ "}}" }}
+
+{%- for table in mart_table_names %}
+-- depends_on: {{ "{{" }} ref('{{ table }}') {{ "}}" }}
+{%- endfor %}
+/* we save all currently active load ids into the processed ids table */
+select {{ c_load_id }}, {{ "{{" }} current_timestamp() {{ "}}" }} as {{ c_inserted_at }} FROM {{ "{{" }} ref('{{ active_table_name }}') {{ "}}" }}

@@ -1,0 +1,22 @@
+/* Table: {{ table_name }} */
+{%- if parent %}
+/* Parent: {{ parent }} */
+{%- endif %}
+{{ "{{" }}
+    config(
+        materialized='incremental'
+    )
+{{ "}}" }}
+{%- if description %}
+/* Description: {{description }} */
+{%- endif %}
+SELECT
+{%- for c in columns %}
+    t.{{ c }},
+{%- endfor %}
+FROM  {{ "{{" }} ref('{{ stg_table_name }}') {{ "}}" }} as t
+{%- if parent_stage_name %}
+/* this join to the parent table is not necessarily needed for this template to work */
+JOIN {{ "{{" }} ref('{{ parent_stage_name }}') {{ "}}" }} as pt
+ON (t.{{ c_dlt_parent_id }} = pt.{{ c_dlt_id }})
+{%- endif %}

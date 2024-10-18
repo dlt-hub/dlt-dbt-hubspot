@@ -1,0 +1,37 @@
+/* Fact Table: {{ fact_table_name }} */
+{{ "{{" }}
+    config(
+        materialized='incremental'
+    )
+{{ "}}" }}
+
+SELECT
+{%- for table in table_tree %}
+    {%- if loop.first %}
+    ---- main table {{ table.table.name }}
+    {%- for c in table.render_columns %}
+    {{ table.alias }}.{{ c }},
+    {%- endfor %}
+
+    {% else %}
+    ---- dim table {{ table.table.name }} via {{ table.alias }}
+    {%- for c in table.render_columns %}
+    {{ table.alias }}.{{ c }} as {{ table.column_aliases[c] }},
+    {%- endfor %}
+    {%- for c in table.suggested_columns %}
+    -- {{ table.alias }}.{{ c }} as {{ table.column_aliases[c] }},
+    {%- endfor %}
+    {% endif %}
+{%- endfor %}
+
+FROM  {{ "{{" }} ref('{{ table_sources[fact_table_name] }}') {{ "}}" }} as {{ fact_table_name }}
+
+{%- for table in table_tree %}
+{%- if table.table_reference %}
+LEFT JOIN {{ "{{" }} ref('{{ table_sources[table.table.name] }}') {{ "}}" }} as {{ table.alias }} ON
+    {%- for i in range(table.table_reference.referenced_columns | length) %}
+        {{ table.alias }}.{{ table.table_reference.referenced_columns[i] }} = {{ table.referenced_node.alias }}.{{ table.table_reference.referencing_columns[i] }}
+        {%- if not loop.last %} AND {% endif %}
+    {%- endfor %}
+{% endif %}
+{%- endfor %}
