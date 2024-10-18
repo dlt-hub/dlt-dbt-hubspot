@@ -96,7 +96,7 @@ for data model which can be further modified as required.
 
 1. The schema of data modelled above using dlt-dbt-generator:
     
-   ![picture1](https://drive.google.com/file/d/1cyHAWOsmRUZq9AdCrjS3Ppon_9Y_iYDY/view?usp=drive_link)
+   ![picture1](Hubspot.png)
 
 > Please note that this is a starting template for your data model and is not the final product. It is advised to customize the
 > data model as per your needs.
