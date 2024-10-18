@@ -49,10 +49,6 @@ dbt_<pipeline-name>/
 │   │   └── dim_<pipeline-name>__contacts__tickets.sql
 │   │   └── dim_<pipeline-name>__contacts.sql
 |   |   └── fact_<pipeline-name>__deals.sql
-|   |   └── dim_<pipeline-name>__owners.sql
-|   |   └── dim_<pipeline-name>__pipelines_deals__stages.sql
-|   |   └── dim_<pipeline-name>__pipelines_deals.sql
-|   |   └── dim_<pipeline-name>__stages_timing_deals.sql
 |   |   └── fact_<pipeline-name>__tickets.sql
 │   ├── staging/
 │   │   ├── sources.yml
@@ -62,10 +58,6 @@ dbt_<pipeline-name>/
 │   │   └── stg_<pipeline-name>__contacts__tickets.sql
 │   │   └── stg_<pipeline-name>__contacts.sql
 |   |   └── stg_<pipeline-name>__deals.sql
-|   |   └── stg_<pipeline-name>__owners.sql
-|   |   └── stg_<pipeline-name>__pipelines_deals__stages.sql
-|   |   └── stg_<pipeline-name>__pipelines_deals.sql
-|   |   └── stg_<pipeline-name>__stages_timing_deals.sql
 |   |   └── stg_<pipeline-name>__tickets.sql
 │   ├── <pipeline-name>_dlt_active_load_ids.sql # Used for incremental processing of data
 │   └── <pipeline-name>_dlt_processed_load.sql # Used for incremental processing of data
@@ -104,12 +96,12 @@ for data model which can be further modified as required.
 
 1. The schema of data modelled above using dlt-dbt-generator:
     
-   ![picture1](https://storage.googleapis.com/dlt-blog-images/hubspot_schema_new%20(1).png)
+   ![picture1](https://drive.google.com/file/d/1cyHAWOsmRUZq9AdCrjS3Ppon_9Y_iYDY/view?usp=drive_link)
 
 > Please note that this is a starting template for your data model and is not the final product. It is advised to customize the
 > data model as per your needs.
 
-Here's the link to the DB diagram: [link](https://dbdiagram.io/d/hubspot_schema_new-66e1604a6dde7f4149be5c2a).
+Here's the link to the DB diagram: [link](https://dbdiagram.io/d/Hubspot-6707bf1e97a66db9a3895bb9).
 
 #### Optional: Advanced Usage (Generator and Licensing)
 
