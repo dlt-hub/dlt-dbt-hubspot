@@ -96,12 +96,12 @@ for data model which can be further modified as required.
 
 1. The schema of data modelled above using dlt-dbt-generator:
     
-   ![picture1](Hubspot.png)
+   ![picture1](https://storage.googleapis.com/dlt-blog-images/hubspot_dlt_dbt_dim_model.png)
 
 > Please note that this is a starting template for your data model and is not the final product. It is advised to customize the
 > data model as per your needs.
 
-Here's the link to the DB diagram: [link](https://dbdiagram.io/d/Hubspot-6707bf1e97a66db9a3895bb9).
+Here's the link to the DB diagram: [link](https://dbdiagram.io/d/Hubspot-6740925ce9daa85aca63bd99).
 
 #### Optional: Advanced Usage (Generator and Licensing)
 

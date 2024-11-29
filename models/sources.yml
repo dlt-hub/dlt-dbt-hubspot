@@ -1,0 +1,154 @@
+version: 2
+sources:
+  - name: raw_data
+    schema: '{{ var ("source_dataset_name") }}'
+    tables:
+      - name: _dlt_loads
+      - name: companies
+      - name: contacts
+      - name: deals
+      - name: tickets
+      - name: contacts__tickets
+      - name: contacts__deals
+  - name: transformed_data
+    schema: '{{ var ("destination_dataset_name") }}'
+    tables:
+      - name: dlt_processed_load_ids
+
+models:
+      - name: dlt_processed_load_ids
+        description: "This table contains all processed load ids for incremental loading"
+      - name: _dlt_loads
+        description: "Created by DLT. Tracks completed loads"
+        columns:
+          - name: load_id
+            tests:
+              - not_null
+          - name: schema_name
+          - name: status
+            tests:
+              - not_null
+          - name: inserted_at
+            tests:
+              - not_null
+          - name: schema_version_hash
+      - name: companies
+        columns:
+          - name: createdate
+          - name: hs_lastmodifieddate
+          - name: hs_object_id
+          - name: hubspot_owner_assigneddate
+          - name: hubspot_owner_id
+          - name: lifecyclestage
+          - name: name
+          - name: num_associated_contacts
+          - name: id
+          - name: _dlt_load_id
+            tests:
+              - not_null
+          - name: _dlt_id
+            tests:
+              - not_null
+              - unique
+      - name: contacts
+        columns:
+          - name: city
+          - name: company
+          - name: createdate
+          - name: email
+          - name: firstname
+          - name: hs_object_id
+          - name: jobtitle
+          - name: lastmodifieddate
+          - name: lastname
+          - name: lifecyclestage
+          - name: num_conversion_events
+          - name: num_unique_conversion_events
+          - name: state
+          - name: website
+          - name: id
+          - name: _dlt_load_id
+            tests:
+              - not_null
+          - name: _dlt_id
+            tests:
+              - not_null
+              - unique
+          - name: twitterhandle
+          - name: twitterprofilephoto
+          - name: first_deal_created_date
+          - name: hubspot_owner_assigneddate
+          - name: hubspot_owner_id
+          - name: num_associated_deals
+          - name: phone
+          - name: notes_last_contacted
+          - name: notes_last_updated
+          - name: num_contacted_notes
+          - name: num_notes
+          - name: address
+          - name: zip
+      - name: deals
+        columns:
+          - name: closedate
+          - name: createdate
+          - name: days_to_close
+          - name: dealname
+          - name: dealstage
+          - name: hs_lastmodifieddate
+          - name: hs_object_id
+          - name: hubspot_owner_assigneddate
+          - name: hubspot_owner_id
+          - name: num_associated_contacts
+          - name: pipeline
+          - name: id
+          - name: _dlt_load_id
+            tests:
+              - not_null
+          - name: _dlt_id
+            tests:
+              - not_null
+              - unique
+      - name: tickets
+        columns:
+          - name: createdate
+          - name: hs_lastmodifieddate
+          - name: hs_object_id
+          - name: hs_pipeline
+          - name: hs_pipeline_stage
+          - name: subject
+          - name: id
+          - name: _dlt_load_id
+            tests:
+              - not_null
+          - name: _dlt_id
+            tests:
+              - not_null
+              - unique
+      - name: contacts__tickets
+        columns:
+          - name: value
+          - name: tickets_id
+          - name: _dlt_parent_id
+            tests:
+              - not_null
+          - name: _dlt_list_idx
+            tests:
+              - not_null
+          - name: _dlt_id
+            tests:
+              - not_null
+              - unique
+      - name: contacts__deals
+        columns:
+          - name: value
+          - name: deals_id
+          - name: _dlt_parent_id
+            tests:
+              - not_null
+          - name: _dlt_list_idx
+            tests:
+              - not_null
+          - name: _dlt_id
+            tests:
+              - not_null
+              - unique
