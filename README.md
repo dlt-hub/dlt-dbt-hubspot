@@ -107,7 +107,7 @@ Here's the link to the DB diagram: [link](https://dbdiagram.io/d/Hubspot-6740925
 
 This package was created using the dlt-dbt-generator by dlt-plus. For more information about dlt-plus, refer to the 
 [dlt-plus documentation.](https://dlt-plus.netlify.app/docs/plus/intro/) To learn more about the dlt-dbt-generator, 
-consult the [dlt-dbt-generator](https://dlt-plus.netlify.app/docs/plus/dlt_dbt_generator/#5-running-dbt-package-directly) documentation.
+consult the [dlt-dbt-generator](https://dlthub.com/blog/dbt-gen) documentation.
 
 > The dimensional modelling part of the package was created with a declarative code generator and suffers from 
 > limitations inherent to modelling raw data directly. We advise you consider the raw data tables and adjust 
